@@ -144,3 +144,14 @@ Contributing
 ------------
 Thank you for your interest in this project! At this time we are not accepting contribution from external collaborators. If you have any
 feedback or suggestions, please feel free to create an issue or contact us directly.
+
+License
+-------
+This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
+
+Contact
+-------
+- **Name**: Shreyas
+- **Email**: shreyasdb99@gmail.com
+- **GitHub**: [shre-db](https://github.com/shre-db)
+- **Instagram**: [shryzium](https://www.instagram.com/shryzium/)
