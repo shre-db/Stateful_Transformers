@@ -9,7 +9,9 @@ Currently this repository contains following classes based on scikit-Learn Libra
 4. CustomPipeline
 5. FullPipeline
 
-These classes were built for specific needs of a project and may not be useful regularly in Machine Learning. The customizations made to these classes make it incompatible with other elements of scikit-learn implementation and should be used with caution. In most cases these classes are not recommended for use with other scikit-learn classes.
+These classes were built for specific needs of a project and may not be useful regularly in Machine Learning. The customizations made to
+these classes make it incompatible with other elements of scikit-learn implementation and should be used with caution. In most cases these
+classes are not recommended for use with other scikit-learn classes.
 This README file provides a description of these classes, usage, contributing guidelines and other information related to the project.
 
 Table of contents
@@ -26,16 +28,23 @@ Table of contents
 
 StatefulTransformerMixin
 ------------------------
-StatefulTransformerMixin class is a custom mixin class that extends the functionality of the TransformerMixin class in scikit-learn. It overrides the `fit_transform` method of TransformerMixin to work with both X and y in a supervised learning setting. This is achieved by passing both X and y to the `transform` method of the transformer object.
+StatefulTransformerMixin class is a custom mixin class that extends the functionality of the TransformerMixin class in scikit-learn. It
+overrides the `fit_transform` method of TransformerMixin to work with both X and y in a supervised learning setting. This is achieved by
+passing both X and y to the `transform` method of the transformer object.
 
-The `fit_transform` method of StatefulTransformerMixin takes in X, y, and fit_params arguments. It fits the transformer object to the data using the `fit` method and then applies the transformer to the data using the `transform` method, passing in both X and y. The `**fit_params` argument allows for passing additional parameters to the `fit` method if needed.
+The `fit_transform` method of StatefulTransformerMixin takes in X, y, and fit_params arguments. It fits the transformer object to the data
+using the `fit` method and then applies the transformer to the data using the `transform` method, passing in both X and y. The
+`**fit_params` argument allows for passing additional parameters to the `fit` method if needed.
 
-The StatefulTransformerMixin class provides a convenient way to create custom transformers that can handle both input data X and target variable y in a supervised learning setting.
+The StatefulTransformerMixin class provides a convenient way to create custom transformers that can handle both input data X and target
+variable y in a supervised learning setting.
 
 StratifiedStatisticalImputer
 ----------------------------
 
-This is a Python class for imputing missing values with statistical values (mean, median) to numerical columns based on categories from another column. The class is named 'StratifiedStatisticalImputer', and it is implemented as a scikit-learn estimator, with BaseEstimator as the base class, and StatefulTransformerMixin as an additional mixin class.
+This is a Python class for imputing missing values with statistical values (mean, median) to numerical columns based on categories from
+another column. The class is named 'StratifiedStatisticalImputer', and it is implemented as a scikit-learn estimator, with BaseEstimator as
+the base class, and StatefulTransformerMixin as an additional mixin class.
 
 The class takes in three parameters:
 
@@ -54,11 +63,15 @@ The class has the following attributes:
 
 The class has a fit_transform method that takes in two arguments, X and y, and returns a pandas DataFrame of shape (n_samples, m_features + 1), which is the numerical data after imputation.
 
-This class is experimental and in a prototype stage, and the output from the transform or fit_transform methods will result in a shuffled dataframe of only numerical variables. Combining this transformed data with the original dataframe that may include both numerical and categorical variables may produce incorrect combinations. This transformer should be used with caution, and future versions of this transformer may address this issue.
+This class is experimental and in a prototype stage, and the output from the transform or fit_transform methods will result in a shuffled
+dataframe of only numerical variables. Combining this transformed data with the original dataframe that may include both numerical and
+categorical variables may produce incorrect combinations. This transformer should be used with caution, and future versions of this
+transformer may address this issue.
 
 MultivariateStratifiedOutlierRemover
 ------------------------------------
-This is a transformer class that removes data points that fall outside of hyper-rectangles defined by strata based on IQR(1.5) or IQR(3) proximity rule. It is built using scikit-learn's BaseEstimator class and a custom TransformerMixin class called StatefulTransformerMixin.
+This is a transformer class that removes data points that fall outside of hyper-rectangles defined by strata based on IQR(1.5) or IQR(3)
+proximity rule. It is built using scikit-learn's BaseEstimator class and a custom TransformerMixin class called StatefulTransformerMixin.
 
 The transformer takes the following parameters:
 
@@ -94,13 +107,40 @@ The transformer has three additional methods:
 - `fit` A method that fits the transformer by computing the various attributes listed above.
 - `transform` A method that transforms the data by taking in both X and y as arguments. 
 
-This transformer is experimental or in a prototype stage. The output from the `transform` or `fit_transform` methods will result in a shuffled DataFrame of only numerical variables. Combining this transformed data with the original DataFrame that may include both numerical and categorical variables may produce incorrect combinations. Please use with caution. Future versions of this transformer may address this issue.
+This transformer is experimental or in a prototype stage. The output from the `transform` or `fit_transform` methods will result in a
+shuffled DataFrame of only numerical variables. Combining this transformed data with the original DataFrame that may include both numerical
+and categorical variables may produce incorrect combinations. Please use with caution. Future versions of this transformer may address this
+issue.
 
 CustomPipeline
 --------------
-This pipeline class is a modified version of the standard pipeline class provided by Scikit-Learn. When transformers like StratifiedStatisticalImputer and MultivariateStratifiedOutlierRemover are used as elements in a transformation pipeline, the standard `Pipeline` class provided by Scikit-Learn becomes incompatible with the requirements of data flow in the pipeline. This is because these transformers use a custom TransformerMixin class and not TransformerMixin directly. Therefore it is necessary to customize the `Pipeline` class as well. `CustomPipeline` inherits from Scikit-Learn's `Pipeline` class and modifies its `transform` and `fit_transform` methods using decorators. Overall, This pipeline class allows working with transformers that require both X and y for `transform` method, therefore while instantiating make sure the transformers under the hood allow `fit_transform` to be performed using both X and y.
+This pipeline class is a modified version of the standard pipeline class provided by Scikit-Learn. When transformers like
+StratifiedStatisticalImputer and MultivariateStratifiedOutlierRemover are used as elements in a transformation pipeline, the standard
+`Pipeline` class provided by Scikit-Learn becomes incompatible with the requirements of data flow in the pipeline. This is because these
+transformers use a custom TransformerMixin class and not TransformerMixin directly. Therefore it is necessary to customize the `Pipeline`
+class as well. `CustomPipeline` inherits from Scikit-Learn's `Pipeline` class and modifies its `transform` and `fit_transform` methods
+using decorators. Overall, This pipeline class allows working with transformers that require both X and y for `transform` method, therefore
+while instantiating make sure the transformers under the hood allow `fit_transform` to be performed using both X and y.
 
 FullPipeline
 ------------
-This pipeline class is a modified version of the standard pipeline class provided by Scikit-Learn. Its purpose is to handle two levels of pipeline nesting that may include transformers derived from Base and Mixin classes like `TransformerMixin` or a custom Mixin class like `StatefulTransformerMixin`. The higher-level pipeline contain modules that are solely pipelines while the lower-level pipelines 
+This pipeline class is a modified version of the standard pipeline class provided by Scikit-Learn. Its purpose is to handle two levels of
+pipeline nesting that may include transformers derived from Base and Mixin classes like `TransformerMixin` or a custom Mixin class like
+`StatefulTransformerMixin`. The higher-level pipeline contain modules that are solely pipelines while the lower-level pipelines 
 contain homogenous transformers (where transfomer's `transform` method takes only `X` or both `X` and `y`).
+
+Usage
+-----
+When a numerical data having missing values is used for a classfication problem, if the variance of mean/median values of feature variables
+for different categories is 'significant', it is inappropriate to simply impute missing values with mean or median of the features without
+considering the category of the missing observation. There are many imputation techniques like predictive imputation that can do the job,
+however an accuracy of 100% may not be feasible. The custom transformer StratifiedStatisticalImputer that was built for this specfic case
+has a potential to improve accuracy using information from labels. Similarly MultivariateStratifiedOutlierRemover removes outliers
+considering the categorical information from labels. These transformers are derived from BaseEstimator and a custom mixin class called
+StatefulTransformerMixin that necessitates both X and y for its concrete class' transform method to work, this can be a problem when
+transforming new data, since it is deprived of labels. Although the transformers work, its applications look limited.
+
+Contributing
+------------
+Thank you for your interest in this project! At this time we are not accepting contribution from external collaborators. If you have any
+feedback or suggestions, please feel free to create an issue or contact us directly.
