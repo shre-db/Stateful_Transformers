@@ -1,4 +1,5 @@
 # Stateful Transformers
+![cover](images/pipelines_cover.png)
 
 Overview
 --------
@@ -23,8 +24,9 @@ Table of contents
 5. FullPipeline
 6. Usage
 7. Contributing
-8. License
-9. Contact
+8. Credits
+9. License
+10. Contact
 
 StatefulTransformerMixin
 ------------------------
@@ -144,6 +146,10 @@ Contributing
 ------------
 Thank you for your interest in this project! At this time we are not accepting contribution from external collaborators. If you have any
 feedback or suggestions, please feel free to create an issue or contact us directly.
+
+Credits
+-------
+Cover image for this repository was generated using OpenAI's [DALL.E](https://labs.openai.com/).
 
 License
 -------
