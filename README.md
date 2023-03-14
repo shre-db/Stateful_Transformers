@@ -95,3 +95,7 @@ The transformer has three additional methods:
 - `transform` A method that transforms the data by taking in both X and y as arguments. 
 
 This transformer is experimental or in a prototype stage. The output from the `transform` or `fit_transform` methods will result in a shuffled DataFrame of only numerical variables. Combining this transformed data with the original DataFrame that may include both numerical and categorical variables may produce incorrect combinations. Please use with caution. Future versions of this transformer may address this issue.
+
+CustomPipeline
+--------------
+This pipeline class is a modified version of the standard pipeline class provided by Scikit-Learn. When transformers like StratifiedStatisticalImputer and MultivariateStratifiedOutlierRemover are used as elements in a transformation pipeline, the standard `Pipeline` class provided by Scikit-Learn becomes incompatible with the requirements of data flow in the pipeline. This is because these transformers use a custom TransformerMixin class and not TransformerMixin class directly. Therefore it is necessary to customize the `Pipeline` class as well. `CustomPipeline` inherits from Scikit-Learn's `Pipeline` class and modifies its `transform` and `fit_transform` methods using decorators. It is not necessary to use decorators rather the methods could simply be overidden for changing the behaviour of the pipelines, however the use of decorators in this cases makes the 
